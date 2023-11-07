@@ -1,4 +1,4 @@
-import { ADD_DATA_BEGIN, ADD_DATA_SUCCESS, ADD_DATA_FAILURE, DataActionTypes, ADD_UPLOAD, DELETE_UPLOAD, SET_UPLOADS } from "./types";
+import { ADD_DATA_BEGIN, ADD_DATA_SUCCESS, ADD_DATA_FAILURE, DataActionTypes, ADD_UPLOAD, DELETE_UPLOAD, SET_UPLOADS } from "../types/types";
 
 interface DataState {
   loading: boolean;

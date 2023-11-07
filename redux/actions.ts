@@ -1,6 +1,6 @@
-import { collection, addDoc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { firestore } from "@/lib/firebase";
-import { ADD_DATA_BEGIN, ADD_DATA_FAILURE, ADD_DATA_SUCCESS, ADD_UPLOAD, DELETE_UPLOAD, SET_UPLOADS } from "./types";
+import { ADD_DATA_BEGIN, ADD_DATA_FAILURE, ADD_DATA_SUCCESS, ADD_UPLOAD, DELETE_UPLOAD, SET_UPLOADS } from "../types/types";
 
 export const addDataToFirestore = (data: any) => async (dispatch: any) => {
   dispatch({ type: ADD_DATA_BEGIN });
@@ -25,14 +25,11 @@ export const addUpload = (upload: any) => ({
   payload: upload,
 });
 
-export const deleteFromToFirestore = (id: any) => async (dispatch: any) => {
-  dispatch({ type: DELETE_UPLOAD });
+export const deleteFromToFirestore = (id: string) => async (dispatch: any) => {
+  dispatch({ type: DELETE_UPLOAD, payload: id });
   try {
-    await deleteDoc(collection(firestore, "data"), id);
-    dispatch({
-      type: DELETE_UPLOAD,
-      payload: id,
-    });
+    const docRef = doc(firestore, "data", id);
+    await deleteDoc(docRef);
     console.log("Document deleted with ID: ", id);
   } catch (error) {
     console.error("Error deleting document from Firestore: ", error);
